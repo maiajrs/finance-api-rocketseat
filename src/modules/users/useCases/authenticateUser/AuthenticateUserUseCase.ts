@@ -26,7 +26,6 @@ export class AuthenticateUserUseCase {
     if(!user) {
       throw new IncorrectEmailOrPasswordError();
     }
-
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
@@ -34,6 +33,7 @@ export class AuthenticateUserUseCase {
     }
 
     const { secret, expiresIn } = authConfig.jwt;
+
 
     const token = sign({ user }, secret, {
       subject: user.id,
